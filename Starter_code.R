@@ -19,7 +19,7 @@ library(lubridate)
 tuesdata <- tidytuesdayR::tt_load('2020-10-27')
 tuesdata <- tidytuesdayR::tt_load(2020, week = 44)
 
-wind_turbine <- tuesdata$wind-turbine
+wind_turbine <- tuesdata$`wind-turbine`
 
 # Or read in the data manually
 
