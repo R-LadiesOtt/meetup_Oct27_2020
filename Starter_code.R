@@ -3,8 +3,16 @@
 
 require(tidytuesdayR)
 library(dplyr)
+library(sf) # the base package manipulating shapes
+library(rgdal) # geo data abstraction library
+library(geojsonio) # geo json input and output
+library(spdplyr) # the `dplyr` counterpart for shapes
+library(rmapshaper) # the package that allows geo shape transformation
+library(magrittr) # data wrangling
+library(dplyr)
+library(tidyr)
 library(ggplot2)
-library(lubridate)
+
 
 ## Section 1 (code provided by https://github.com/rfordatascience/tidytuesday/tree/master/data/2020/2020-10-27) 
 
@@ -24,3 +32,15 @@ wind_turbine <- tuesdata$`wind-turbine`
 # Or read in the data manually
 
 #wind_turbine <- readr::read_csv('https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2020/2020-10-27/wind-turbine.csv')
+
+wind_turb_by_prov <- wind_turbine %>% 
+  group_by(province_territory) %>% 
+  tally() %>% 
+  arrange(desc(total_by_prov)) 
+
+wind_turb_manuf <- wind_turbine %>% 
+  group_by(manufacturer, province_territory) %>% 
+  tally() %>% 
+  arrange(desc(n))
+
+
